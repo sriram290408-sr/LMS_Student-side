@@ -1,0 +1,49 @@
+.main {
+  flex: 1;
+}
+
+/* Header */
+.header {
+  background: #5a9cf5;
+  color: white;
+  padding: 15px;
+  font-size: 18px;
+}
+
+/* Content */
+.content {
+  padding: 50px;
+  display: flex;
+  gap: 40px;
+}
+
+/* Right panel */
+.right-panel {
+  width: 30%;
+}
+
+.timer {
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.quiz-nav {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  gap: 20px;
+}
+
+.nav-grid div {
+  width: 40px;
+  height:45px;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

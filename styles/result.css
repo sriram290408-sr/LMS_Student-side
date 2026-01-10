@@ -1,0 +1,41 @@
+/* Result info box (top details) */
+.result-info {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Question review box */
+.review-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Answer status */
+.correct {
+  background: #86efac;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.wrong {
+  background: #f87171;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Finish button */
+.finish-btn {
+  padding: 10px 40px;
+  background: orange;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

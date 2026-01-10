@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>theWorks Dashboard</title>
+  <link rel="stylesheet" href="../styles/profile.css"/>
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>theWorks</h1>
+  </header>
+
+  <div class="container">
+    
+    <aside class="sidebar">
+      <a href="./dashboard.html">Dashboard</a>
+      <a href="./mycourse.html">My course</a>
+      <a href="./attendence.html">Attendance</a>
+      <a href="./result.html">Test & Result</a>
+      <a href="./profile.html">Profile</a>
+    </aside>
+
+    <main class="content">
+
+      <div class="card profile-card">
+        <img src="../Asset/sunil.jpg" alt="Profile" />
+        <div class="profile-info">
+          <h2>Sunil Kumar</h2>
+          <p>📧 sunilsann123@gmail.com</p>
+          <p>🏫 DRBCCC Hindu College, Chennai</p>
+          <p>📞 86676 *****</p>
+        </div>
+        <button onclick="location.href='../Edit-Profile/index.html'">✏ Edit Profile</button>
+      </div>
+
+            <div class="card">
+        <h3>Assigned Works</h3>
+        <ul>
+          <li>Problem solving</li>
+          <li>English</li>
+          <li>Life skills</li>
+          <li>Computer basic</li>
+          <li>CSS and HTML</li>
+        </ul>
+      </div>
+
+      
+      <div class="card">
+        <h3>Other Information</h3>
+        <div class="links">
+          <button onclick="openLink('linkedin')">LinkedIn</button><br>
+          <button onclick="openLink('github')">GitHub</button><br>
+          <button onclick="openLink('website')">Website</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>

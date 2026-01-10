@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #ffffff;
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    background: #f8fafc;
+    padding: 30px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.header h2 {
+    font-size: 22px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #38bdf8;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.grid a {
+    text-decoration: none;
+}
+.card {
+    padding: 20px;
+    border-radius: 14px;
+    color: white;
+    min-height: 140px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card span {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 40px;
+    opacity: 0.3;
+}
+
+
+/* Card Colors */
+.red {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.blue {
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
+}
+
+.purple {
+    background: linear-gradient(135deg, #8b5cf6, #5b21b6);
+}
+
+.pink {
+    background: linear-gradient(135deg, #ec4899, #9d174d);
+}

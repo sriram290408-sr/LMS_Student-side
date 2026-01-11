@@ -22,8 +22,6 @@ h1{
   margin-bottom: 50px;
   margin-top: 30px;
   color: #000000;
-  margin-left: 30px;
- 
 }
 
 .user {
@@ -52,6 +50,7 @@ h1{
 details {
   border-bottom: 1px solid #2a2a2a;
   padding: 26px 0;
+  width: 1400px;
 }
 
 summary {

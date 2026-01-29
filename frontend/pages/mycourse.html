@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My Courses</title>
+
+    <link rel="stylesheet" href="../styles/navbar.css" />
+    <link rel="stylesheet" href="../styles/mycourse.css" />
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- NAVBAR -->
+      <nav class="navbar" id="sidebar">
+        <div class="nav-top">
+          <div class="nav-logo"><img src="../assets/fssa.png" style="width: 30px;margin-top:20px;"/> FSSA</div>
+
+          <button
+            class="nav-toggle"
+            id="navToggle"
+            aria-label="Toggle navigation"
+          >
+            ☰
+          </button>
+        </div>
+
+        <div class="nav-menu">
+          <a href="./dashboard.html">Dashboard</a>
+          <a class="active" href="./mycourse.html">My Course</a>
+          <a href="./attendence.html">Attendance</a>
+          <a href="./result.html">Test & Result</a>
+          <a href="./daily_practice.html">Daily Practice</a>
+        </div>
+      </nav>
+
+      <!-- MAIN -->
+      <main class="main">
+        <header class="header">
+          <div>
+            <h2>Hi! User name</h2>
+            <small>Freshworks STS Software Academy</small>
+          </div>
+
+          <div class="user">
+            <div class="avatar">U</div>
+            <span>User name</span>
+          </div>
+        </header>
+
+        <!-- SEARCH -->
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input
+            type="search"
+            placeholder="Search courses..."
+            class="search-input"
+          />
+        </div>
+
+        <!-- COURSES -->
+        <section class="course-grid">
+          <div class="course-card purple">
+            <div class="card-top">
+              <div class="icon">📘</div>
+              <span class="section">Section C</span>
+            </div>
+            <h3>JavaScript Fundamentals</h3>
+            <p>
+              Master modern JavaScript with ES6+ features, async programming,
+              and DOM manipulation.
+            </p>
+            <div class="meta">
+              <span>👥 45 Students</span>
+              <span>⏱ 12 Weeks</span>
+            </div>
+          </div>
+
+          <a href="../pages/python.html">
+            <div class="course-card pink">
+              <div class="card-top">
+                <div class="icon">📕</div>
+                <span class="section">Section A</span>
+              </div>
+              <h3>Python Programming</h3>
+              <p>
+                Learn Python from basics to advanced topics including OOP, data
+                structures, and algorithms.
+              </p>
+              <div class="meta">
+                <span>👥 62 Students</span>
+                <span>⏱ 16 Weeks</span>
+              </div>
+            </div>
+          </a>
+
+          <div class="course-card blue">
+            <div class="card-top">
+              <div class="icon">📘</div>
+              <span class="section">Section B</span>
+            </div>
+            <h3>React Development</h3>
+            <p>
+              Build modern web applications with React, hooks, context API, and
+              state management.
+            </p>
+            <div class="meta">
+              <span>👥 38 Students</span>
+              <span>⏱ 10 Weeks</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- NO RESULTS -->
+        <p id="noResults" class="no-results">No courses found.</p>
+      </main>
+    </div>
+
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/search.js"></script>
+  </body>
+</html>

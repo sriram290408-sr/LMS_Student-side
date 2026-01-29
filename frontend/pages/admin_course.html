@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Courses</title>
+
+    <link rel="stylesheet" href="../styles/admin_course.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <h1 class="logo">
+          <img src="../assets/fssa.png" style="width: 30px; margin-top: 2px" />
+          FSSA
+        </h1>
+
+        <nav>
+          <a class="active">Courses</a>
+          <a>Students</a>
+          <a>Attendance</a>
+          <a>Results</a>
+        </nav>
+      </aside>
+
+      <!-- MAIN -->
+      <main>
+        <header class="topbar">
+          <input id="searchInput" placeholder="Search courses..." />
+
+          <button id="openAddCourse" class="primary">+ Add Course</button>
+        </header>
+
+        <section id="coursesGrid" class="grid"></section>
+      </main>
+    </div>
+
+    <!-- COURSE MODAL -->
+    <div id="courseModal" class="modal">
+      <div class="modal-box">
+        <h2>Add Course</h2>
+
+        <form id="addForm">
+          <input id="addFull" placeholder="Course full name" required />
+          <input id="addShort" placeholder="Short name" />
+
+          <select id="addCategory">
+            <option>Development</option>
+            <option>Design</option>
+          </select>
+
+          <select id="addVisibility">
+            <option>Show</option>
+            <option>Hide</option>
+          </select>
+
+          <input id="addStart" type="date" />
+          <input id="addEnd" type="date" />
+
+          <input id="addId" placeholder="Course ID" />
+
+          <textarea id="addSummary" placeholder="Summary"></textarea>
+
+          <div class="modal-actions">
+            <button type="button" id="closeCourse">Cancel</button>
+
+            <button class="primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- STUDENT MODAL -->
+    <div id="studentModal" class="modal">
+      <div class="modal-box">
+        <h2>Add Student</h2>
+
+        <form id="studentForm">
+          <select id="studentCourse"></select>
+
+          <input id="studentName" placeholder="Student Name" required />
+
+          <input id="studentEmail" placeholder="Email" />
+
+          <input id="studentId" placeholder="Student ID" />
+
+          <div class="modal-actions">
+            <button type="button" id="closeStudent">Cancel</button>
+
+            <button class="primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="../scripts/admin_course.js"></script>
+  </body>
+</html>

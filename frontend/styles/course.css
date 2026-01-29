@@ -1,0 +1,114 @@
+body {
+    background: #f8fafc;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Main layout */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+    padding: 50px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    font-size: 26px;
+    color: #111827;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    background: #38bdf8;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* FAQ container */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Back button */
+.back-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    background: #38bdf8;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.back-btn:hover {
+    background: #0ea5e9;
+}
+
+/* <details> styling */
+details {
+    background: #ffffff;
+    padding: 18px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+}
+
+details[open] {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+summary {
+    font-weight: 600;
+    font-size: 16px;
+    outline: none;
+}
+
+details p {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #475569;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main {
+        padding: 30px;
+    }
+
+    .faq-container {
+        gap: 12px;
+    }
+
+    details p {
+        font-size: 14px;
+    }
+}

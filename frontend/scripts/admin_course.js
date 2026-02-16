@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const search = document.getElementById("searchInput");
 
   const openAddBtn = document.getElementById("openAddCourse");
-
   const courseModal = document.getElementById("courseModal");
   const studentModal = document.getElementById("studentModal");
 
@@ -13,21 +12,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const addForm = document.getElementById("addForm");
   const studentForm = document.getElementById("studentForm");
 
-  const studentCourse = document.getElementById("studentCourse");
+  const addFull = document.getElementById("addFull");
+  const addShort = document.getElementById("addShort");
+  const addCategory = document.getElementById("addCategory");
+  const addVisibility = document.getElementById("addVisibility");
+  const addStart = document.getElementById("addStart");
+  const addEnd = document.getElementById("addEnd");
+  const addId = document.getElementById("addId");
+  const addSummary = document.getElementById("addSummary");
+
+  const studentBatch = document.getElementById("studentBatch");
 
   let courses = JSON.parse(localStorage.getItem("admin_courses")) || [];
   let editingIndex = null;
-
-  function save() {
-    localStorage.setItem("admin_courses", JSON.stringify(courses));
-  }
+  let activeStudentIndex = null;
 
   render();
 
-  /* OPEN ADD */
-
   openAddBtn.onclick = () => openCourse();
-
   closeCourse.onclick = () => (courseModal.style.display = "none");
   closeStudent.onclick = () => (studentModal.style.display = "none");
 
@@ -40,11 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (i !== null) {
       const c = courses[i];
-
       addFull.value = c.full;
       addShort.value = c.short;
       addCategory.value = c.category;
-      addVisibility.value = c.visibility;
+      addVisibility.value = c.hidden ? "Hide" : "Show";
       addStart.value = c.start;
       addEnd.value = c.end;
       addId.value = c.id;
@@ -54,8 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
     courseModal.style.display = "grid";
   }
 
-  /* ADD / EDIT */
-
   addForm.onsubmit = (e) => {
     e.preventDefault();
 
@@ -63,28 +62,23 @@ document.addEventListener("DOMContentLoaded", () => {
       full: addFull.value,
       short: addShort.value,
       category: addCategory.value,
-      visibility: addVisibility.value,
       start: addStart.value,
       end: addEnd.value,
       id: addId.value,
       summary: addSummary.value,
       hidden: addVisibility.value === "Hide",
-      students: editingIndex !== null ? courses[editingIndex].students : [],
+      batches:
+        editingIndex !== null ? courses[editingIndex].batches : [],
     };
 
-    if (editingIndex !== null) {
-      courses[editingIndex] = course;
-    } else {
-      courses.push(course);
-    }
+    if (editingIndex !== null) courses[editingIndex] = course;
+    else courses.push(course);
 
-    save();
+    localStorage.setItem("admin_courses", JSON.stringify(courses));
+
     render();
-
     courseModal.style.display = "none";
   };
-
-  /* RENDER */
 
   function render() {
     grid.innerHTML = "";
@@ -93,6 +87,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.className = "course-card";
       if (c.hidden) card.classList.add("hidden");
+
+      const batchBadges =
+        c.batches && c.batches.length
+          ? c.batches
+              .map(
+                (b) =>
+                  `<span class="badge" style="background:#10b981;">Batch ${b}</span>`
+              )
+              .join(" ")
+          : "None";
 
       card.innerHTML = `
         <div class="course-header">
@@ -103,51 +107,71 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>${c.summary || ""}</p>
 
         <div class="meta">
-          <span>${c.id}</span>
-          <span>${c.students.length} students</span>
+          <span>ID: ${c.id}</span>
+          <span>${batchBadges}</span>
         </div>
 
         <div class="course-actions">
-
           <label class="switch">
             <input type="checkbox" ${!c.hidden ? "checked" : ""}>
             <span class="slider"></span>
           </label>
 
-          <button class="btn-enroll">Add Student</button>
+          <button class="btn-enroll">Add Batch</button>
           <button class="edit">Edit</button>
           <button class="delete">Delete</button>
-
         </div>
       `;
 
-      /* hide */
+      // CARD CLICK → course-name.html
+      card.onclick = () => {
+        const slug = c.full
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9\s-]/g, "")
+          .replace(/\s+/g, "-");
 
+        window.location.href = `course-${slug}.html`;
+      };
+
+      // TOGGLE VISIBILITY
       card.querySelector("input").onchange = (e) => {
+        e.stopPropagation();
         c.hidden = !e.target.checked;
-        save();
+        localStorage.setItem("admin_courses", JSON.stringify(courses));
         render();
       };
 
-      card.querySelector(".delete").onclick = () => {
-        courses.splice(i, 1);
-        save();
-        render();
+      // DELETE
+      card.querySelector(".delete").onclick = (e) => {
+        e.stopPropagation();
+        if (confirm("Delete this course?")) {
+          courses.splice(i, 1);
+          localStorage.setItem("admin_courses", JSON.stringify(courses));
+          render();
+        }
       };
 
-      card.querySelector(".edit").onclick = () => openCourse(i);
+      // EDIT
+      card.querySelector(".edit").onclick = (e) => {
+        e.stopPropagation();
+        openCourse(i);
+      };
 
-      card.querySelector(".btn-enroll").onclick = () => openStudent(i);
+      // ADD BATCH
+      card.querySelector(".btn-enroll").onclick = (e) => {
+        e.stopPropagation();
+        activeStudentIndex = i;
+        studentForm.reset();
+        studentModal.style.display = "grid";
+      };
 
       grid.appendChild(card);
     });
   }
 
-  /* SEARCH */
-
   search.oninput = () => {
     const q = search.value.toLowerCase();
-
     document.querySelectorAll(".course-card").forEach((card) => {
       card.style.display = card.innerText.toLowerCase().includes(q)
         ? "flex"
@@ -155,39 +179,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  /* STUDENT */
-
-  function openStudent(i) {
-    studentForm.reset();
-    studentCourse.innerHTML = "";
-
-    courses.forEach((c, idx) => {
-      const opt = document.createElement("option");
-      opt.value = idx;
-      opt.textContent = c.full;
-
-      if (idx === i) opt.selected = true;
-
-      studentCourse.appendChild(opt);
-    });
-
-    studentModal.style.display = "grid";
-  }
-
   studentForm.onsubmit = (e) => {
     e.preventDefault();
 
-    const idx = studentCourse.value;
+    const idx = activeStudentIndex;
 
-    courses[idx].students.push({
-      name: studentName.value,
-      email: studentEmail.value,
-      id: studentId.value,
-    });
+    if (!courses[idx].batches) courses[idx].batches = [];
 
-    save();
+    if (!courses[idx].batches.includes(studentBatch.value)) {
+      courses[idx].batches.push(studentBatch.value);
+    }
+
+    localStorage.setItem("admin_courses", JSON.stringify(courses));
+
     render();
-
     studentModal.style.display = "none";
   };
 });

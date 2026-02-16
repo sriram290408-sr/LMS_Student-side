@@ -9,7 +9,7 @@
 
   <body>
     <!-- BACK BUTTON -->
-    <a href="index.html" class="back-button">
+    <a href="./admin_course.html" class="back-button">
       <svg
         class="text-green"
         width="20"
@@ -208,9 +208,6 @@
               </button>
             </div>
           </nav>
-          <button class="add-section-btn" onclick="addSection()">
-            + Add New Section
-          </button>
         </aside>
 
         <!-- MAIN CONTENT AREA -->
@@ -534,14 +531,8 @@ Hello, Python!
           <button class="editor-close-btn" onclick="closeEditor()">×</button>
         </div>
         <div class="editor-modal-body">
-          <div
-            id="topic-input-container"
-            class="modal-form-group"
-            style="display: none"
-          >
-            <label style="display: block; margin-bottom: 8px; font-weight: 600"
-              >Topic / Heading:</label
-            >
+          <div id="topic-input-container" class="modal-form-group hidden">
+            <label class="modal-label">Topic / Heading:</label>
             <input
               type="text"
               id="modal-topic-heading"
@@ -549,11 +540,7 @@ Hello, Python!
               placeholder="Enter topic heading..."
             />
           </div>
-          <label
-            id="editor-label"
-            style="display: block; margin-bottom: 8px; font-weight: 600"
-            >Content:</label
-          >
+          <label id="editor-label" class="modal-label">Content:</label>
           <div id="quill-editor"></div>
         </div>
         <div class="editor-modal-footer">
@@ -578,251 +565,6 @@ Hello, Python!
     />
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-    <script>
-      let quill;
-      let currentEditElement = null;
-
-      function initQuill() {
-        quill = new Quill("#quill-editor", {
-          theme: "snow",
-          placeholder: "Modify content...",
-          modules: {
-            toolbar: [
-              ["bold", "italic", "underline", "strike"],
-              ["blockquote", "code-block"],
-              [{ list: "ordered" }, { list: "bullet" }],
-              [{ header: [1, 2, 3, false] }],
-              ["link"],
-              ["clean"],
-            ],
-          },
-        });
-      }
-
-      window.addEventListener("load", function () {
-        initQuill();
-      });
-
-      const editModeToggle = document.getElementById("edit-mode-toggle");
-
-      editModeToggle.addEventListener("change", function () {
-        const editableElements = document.querySelectorAll(
-          ".course-content h2, .course-content h3, .course-content h4, " +
-            ".course-content p, .course-content li, .course-content .intro-text, " +
-            ".topics-sidebar h4, .topics-sidebar a",
-        );
-
-        if (this.checked) {
-          editableElements.forEach((element) => {
-            element.classList.add("editable-element");
-            element.addEventListener("click", openEditor);
-          });
-        } else {
-          editableElements.forEach((element) => {
-            element.classList.remove("editable-element");
-            element.removeEventListener("click", openEditor);
-          });
-        }
-      });
-
-      let isAddMode = false;
-
-      function openEditor(e) {
-        if (!editModeToggle.checked) return;
-        e.preventDefault();
-        e.stopPropagation();
-
-        isAddMode = false;
-        currentEditElement = e.currentTarget;
-
-        // UI Adjustments for Edit Mode
-        document.getElementById("modal-title").textContent = "Edit Content";
-        document.getElementById("topic-input-container").style.display = "none";
-        document.getElementById("modal-save-btn").textContent = "Save Changes";
-
-        quill.root.innerHTML = currentEditElement.innerHTML;
-        document.getElementById("editor-modal").style.display = "flex";
-        quill.focus();
-      }
-
-      function openAddModal() {
-        if (!editModeToggle.checked) return;
-
-        isAddMode = true;
-        currentEditElement = null;
-
-        // UI Adjustments for Add Mode
-        document.getElementById("modal-title").textContent =
-          "Add New Content Block";
-        document.getElementById("topic-input-container").style.display =
-          "block";
-        document.getElementById("modal-save-btn").textContent = "Add Block";
-        document.getElementById("modal-topic-heading").value = "";
-
-        quill.root.innerHTML = "";
-        document.getElementById("editor-modal").style.display = "flex";
-        document.getElementById("modal-topic-heading").focus();
-      }
-
-      function closeEditor() {
-        document.getElementById("editor-modal").style.display = "none";
-        currentEditElement = null;
-        quill.setContents([]);
-      }
-
-      function saveContent() {
-        if (isAddMode) {
-          const headingText =
-            document.getElementById("modal-topic-heading").value || "New Topic";
-          const contentHtml = quill.root.innerHTML;
-          const topicId = "extra-topic-" + Date.now();
-
-          // 1. Create Main Content Section
-          const main = document.querySelector(".course-content");
-          const article = document.createElement("article");
-          article.className = "content-section";
-          article.id = topicId;
-          article.innerHTML = `
-            <h2 class="editable-element" onclick="openEditor(event)">${headingText}</h2>
-            <div class="editable-element" onclick="openEditor(event)">
-              ${contentHtml || "<p>New content section created.</p>"}
-            </div>
-          `;
-
-          // Insert before the "Add Block" button
-          const addBtn = document.querySelector(".add-content-block-btn");
-          main.insertBefore(article, addBtn);
-
-          // 2. Add to Sidebar (Generic "Extra Content" section or last section)
-          const lastNavSection = document.querySelector(
-            ".topics-nav .topic-section:last-of-type ul",
-          );
-          if (lastNavSection) {
-            const li = document.createElement("li");
-            li.innerHTML = `<a href="#${topicId}" class="editable-element" onclick="openEditor(event)">${headingText}</a>`;
-            lastNavSection.appendChild(li);
-          }
-
-          showSuccessMessage("Block added successfully!");
-        } else {
-          if (!currentEditElement) return;
-          currentEditElement.innerHTML = quill.root.innerHTML;
-          showSuccessMessage("✓ Content updated!");
-        }
-
-        closeEditor();
-      }
-
-      function addSection() {
-        const nav = document.querySelector(".topics-nav");
-        const topicId = "topic-" + Date.now();
-        const section = document.createElement("div");
-        section.className = "topic-section";
-        section.innerHTML = `
-          <h4 class="editable-element" onclick="openEditor(event)">New Section</h4>
-          <ul>
-            <li><a href="#${topicId}" class="editable-element" onclick="openEditor(event)">New Topic</a></li>
-          </ul>
-          <button class="add-topic-btn" onclick="addTopic(this)">+ Add Topic</button>
-        `;
-        nav.appendChild(section);
-
-        // Add corresponding content section
-        addContentArticle(topicId, "New Topic Heading");
-
-        showSuccessMessage(
-          "Section added! Click sidebar to rename, or scroll down to edit content.",
-        );
-      }
-
-      function addTopic(btn) {
-        const ul = btn.previousElementSibling;
-        const topicId = "topic-" + Date.now();
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="#${topicId}" class="editable-element" onclick="openEditor(event)">New Topic</a>`;
-        ul.appendChild(li);
-
-        // Add corresponding content section
-        addContentArticle(topicId, "New Topic Heading");
-
-        showSuccessMessage("Topic added! Content section created below.");
-      }
-
-      function addContentArticle(id, heading) {
-        const main = document.querySelector(".course-content");
-        const article = document.createElement("article");
-        article.className = "content-section";
-        article.id = id;
-        article.innerHTML = `
-          <h2 class="editable-element" onclick="openEditor(event)">${heading}</h2>
-          <p class="editable-element" onclick="openEditor(event)">Click here to start writing your detailed content for this topic. You can use the rich text editor to add formatting, links, and code blocks.</p>
-          <div class="content-card editable-element" onclick="openEditor(event)">
-            <h3>Pro Tip</h3>
-            <p>Use content cards like this to highlight important notes or steps!</p>
-          </div>
-          <a href="#" class="resource-link editable-element" onclick="openEditor(event)">Documentation Link</a>
-        `;
-        main.appendChild(article);
-      }
-
-      function showSuccessMessage(text) {
-        const message = document.createElement("div");
-        message.className = "success-toast";
-        message.textContent = text;
-        document.body.appendChild(message);
-        setTimeout(() => message.classList.add("show"), 10);
-        setTimeout(() => {
-          message.classList.remove("show");
-          setTimeout(() => document.body.removeChild(message), 300);
-        }, 2000);
-      }
-
-      document
-        .getElementById("editor-modal")
-        .addEventListener("click", function (e) {
-          if (e.target === this) closeEditor();
-        });
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") closeEditor();
-        if (
-          e.ctrlKey &&
-          e.key === "s" &&
-          document.getElementById("editor-modal").style.display === "flex"
-        ) {
-          e.preventDefault();
-          saveContent();
-        }
-      });
-
-      // SIDEBAR SEARCH LOGIC
-      const topicSearchInput = document.querySelector(".course-search-input");
-      const topicSections = document.querySelectorAll(".topic-section");
-
-      topicSearchInput.addEventListener("input", function (e) {
-        const searchTerm = e.target.value.toLowerCase().trim();
-
-        topicSections.forEach((section) => {
-          const titleLabel = section.querySelector("h4");
-          if (!titleLabel) return;
-          const title = titleLabel.textContent.toLowerCase();
-          const links = section.querySelectorAll("li");
-          let sectionHasMatch = title.includes(searchTerm);
-
-          links.forEach((link) => {
-            const text = link.textContent.toLowerCase();
-            if (text.includes(searchTerm)) {
-              link.style.display = "block";
-              sectionHasMatch = true;
-            } else {
-              link.style.display = "none";
-            }
-          });
-
-          section.style.display = sectionHasMatch ? "block" : "none";
-        });
-      });
-    </script>
-    <script src="../scripts/admin_script.js"></script>
+    <script src="../scripts/admin_python.js"></script>
   </body>
 </html>

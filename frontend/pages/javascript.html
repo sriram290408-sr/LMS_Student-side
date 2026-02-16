@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Programming - FSSA</title>
+    <link rel="stylesheet" href="../styles/course.css" />
+  </head>
+
+  <body>
+    <!-- BACK BUTTON -->
+    <a href="../pages/mycourse.html" class="back-button">
+      <svg
+        class="text-green"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+      Back to Courses
+    </a>
+
+    <!-- COURSE CONTENT WRAPPER -->
+    <div class="course-wrapper">
+
+      <!-- COURSE HEADER -->
+      <header class="course-header course-header-javascript">
+        <div class="course-header-content">
+          <div class="course-icon-large">
+            <svg
+              class="text-green"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 6.042c1.383-1.123 3.446-1.708 5.75-1.708 2.303 0 4.366.585 5.75 1.708v12.75c-1.383-1.123-3.446-1.708-5.75-1.708-2.303 0-4.366.585-5.75 1.708m0-12.75c-1.383-1.123-3.446-1.708-5.75-1.708-2.303 0-4.366.585-5.75 1.708v12.75c1.383-1.123 3.446-1.708 5.75-1.708 2.303 0 4.366.585 5.75 1.708M12 4.5v15.25"
+              />
+            </svg>
+          </div>
+
+          <div class="course-header-info">
+            <h1>JavaScript Programming</h1>
+            <p>
+              Learn JavaScript from basics to advanced topics including DOM,
+              asynchronous programming, and modern frameworks.
+            </p>
+            <div class="course-stats"></div>
+          </div>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="course-header-actions">
+          <div class="course-search-container">
+            <input
+              type="text"
+              class="course-search-input"
+              placeholder="Search topics..."
+            />
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT CONTAINER -->
+      <div class="content-container">
+
+        <!-- TOPICS SIDEBAR -->
+        <aside class="topics-sidebar">
+          <h3>Course Topics</h3>
+          <nav class="topics-nav">
+
+            <div class="topic-section">
+              <h4>Introduction</h4>
+              <ul>
+                <li><a href="#intro" class="active">Welcome to JavaScript</a></li>
+                <li><a href="#setup">Environment Setup</a></li>
+                <li><a href="#first">Your First Script</a></li>
+              </ul>
+            </div>
+
+            <div class="topic-section">
+              <h4>JavaScript Basics</h4>
+              <ul>
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#datatypes">Data Types</a></li>
+                <li><a href="#operators">Operators</a></li>
+              </ul>
+            </div>
+
+            <div class="topic-section">
+              <h4>DOM & Events</h4>
+              <ul>
+                <li><a href="#dom">DOM Introduction</a></li>
+                <li><a href="#events">Event Handling</a></li>
+              </ul>
+            </div>
+
+            <div class="topic-section">
+              <h4>Advanced Topics</h4>
+              <ul>
+                <li><a href="#async">Async JavaScript</a></li>
+                <li><a href="#modules">Modules</a></li>
+              </ul>
+            </div>
+
+          </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="course-content">
+
+          <!-- INTRO -->
+          <article class="content-section" id="intro">
+            <h2>Welcome to JavaScript</h2>
+            <p class="intro-text">
+              JavaScript is the language of the web. It powers interactive
+              websites, web apps, and full-stack applications.
+            </p>
+
+            <div class="code-block">
+              <pre><code>function greet(name) {
+  return `Hello, ${name}! Welcome to JavaScript.`;
+}
+
+const message = greet("Learner");
+console.log(message);
+
+const skills = ["Web Dev", "Games", "AI"];
+skills.forEach(skill =>
+  console.log(`JavaScript excels in ${skill}`)
+);</code></pre>
+            </div>
+
+            <div class="content-card">
+              <h3>Why Learn JavaScript?</h3>
+              <ul class="learning-objectives">
+                <li>Runs in every modern browser</li>
+                <li>Essential for front-end development</li>
+                <li>Used in backend with Node.js</li>
+                <li>Huge ecosystem</li>
+                <li>High-paying career opportunities</li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <h3>Course Curriculum</h3>
+              <div class="overview-grid">
+                <div class="overview-item">
+                  <h4>JS Basics</h4>
+                  <p>Variables, loops, conditions, and functions</p>
+                </div>
+                <div class="overview-item">
+                  <h4>DOM</h4>
+                  <p>Manipulating web pages dynamically</p>
+                </div>
+                <div class="overview-item">
+                  <h4>Async</h4>
+                  <p>Promises, fetch, async/await</p>
+                </div>
+                <div class="overview-item">
+                  <h4>Projects</h4>
+                  <p>Real-world applications</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-card">
+              <h3>What You'll Build</h3>
+              <ol class="numbered-list">
+                <li>Interactive website</li>
+                <li>To-do app</li>
+                <li>Weather application</li>
+                <li>Mini game</li>
+                <li>API-driven project</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- INSTALL -->
+          <article class="content-section" id="setup">
+            <h2>Environment Setup</h2>
+
+            <div class="content-card">
+              <h3>Step 1: Install Code Editor</h3>
+              <pre><code>Download VS Code:
+https://code.visualstudio.com</code></pre>
+            </div>
+
+            <div class="content-card">
+              <h3>Step 2: Run JavaScript</h3>
+              <pre><code>// in browser console
+console.log("Hello JS");
+
+// using Node.js
+node app.js</code></pre>
+            </div>
+          </article>
+
+          <!-- BASICS -->
+          <article class="content-section" id="syntax">
+            <h2>Syntax</h2>
+            <p>JavaScript uses curly braces and semicolons.</p>
+          </article>
+
+          <article class="content-section" id="variables">
+            <h2>Variables</h2>
+            <p>Declare with let, const, or var.</p>
+          </article>
+
+          <article class="content-section" id="datatypes">
+            <h2>Data Types</h2>
+            <p>Number, String, Boolean, Object, Array.</p>
+          </article>
+
+          <article class="content-section" id="operators">
+            <h2>Operators</h2>
+            <p>Arithmetic, logical, comparison operators.</p>
+          </article>
+
+          <!-- ADVANCED -->
+          <article class="content-section" id="dom">
+            <h2>DOM Introduction</h2>
+            <p>Interact with HTML using JavaScript.</p>
+          </article>
+
+          <article class="content-section" id="events">
+            <h2>Event Handling</h2>
+            <p>Respond to user actions.</p>
+          </article>
+
+          <article class="content-section" id="async">
+            <h2>Async JavaScript</h2>
+            <p>Promises, async/await, API calls.</p>
+          </article>
+
+          <article class="content-section" id="modules">
+            <h2>Modules</h2>
+            <p>Organize code with ES modules.</p>
+          </article>
+
+        </main>
+      </div>
+    </div>
+
+  </body>
+</html>
